@@ -1,0 +1,152 @@
+.scene {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  gap: 32px;
+}
+
+.envelopeWrapper {
+  perspective: 900px;
+}
+
+/* ── Wax seal wrapper — owns absolute positioning (never transforms) ── */
+.sealWrapper {
+  position: absolute;
+  left: 50%;
+  top: calc(48% - 44px);   /* raised slightly above the fold; 44px = half of 88px seal */
+  transform: translateX(-50%);
+  z-index: 6;              /* above flap (z-index 5) */
+  pointer-events: none;    /* let the button inside handle events */
+}
+
+/* ── Seal button — only handles scale/hover, never translates ── */
+.sealBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  pointer-events: auto;
+  filter: drop-shadow(0 0 10px rgba(212, 168, 67, 0.45));
+  will-change: transform;
+}
+
+/* ── Envelope container ── */
+.envelope {
+  position: relative;
+  width: clamp(260px, 55vw, 420px);
+  height: clamp(180px, 38vw, 290px);
+  perspective: 900px;
+  filter: drop-shadow(0 20px 60px rgba(0,0,0,0.55));
+}
+
+/* Back flap — bottom-left and bottom-right triangles */
+.flapBack {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #6b1525 0%, #3a0c18 100%);
+  border: 1.5px solid var(--color-gold-dark);
+  border-radius: 2px;
+  z-index: 1;
+}
+
+/* The card peeking out (sliding up) */
+.cardSliver {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 12%;
+  height: 80%;
+  background: linear-gradient(170deg, #fef9f0 0%, #f5e8d0 100%);
+  border: 1px solid var(--color-gold);
+  border-radius: 2px;
+  z-index: 2;
+}
+
+/* Envelope face */
+.envelopeFace {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #5c1828 0%, #4a1020 60%, #3a0c18 100%);
+  border: 1.5px solid var(--color-gold-dark);
+  border-radius: 2px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 10px 12px;
+  overflow: hidden;
+}
+
+/* Diagonal V lines on envelope face (classic envelope look) */
+.envelopeFace::before,
+.envelopeFace::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--color-gold-dark) 40%, var(--color-gold-dark) 60%, transparent);
+  opacity: 0.25;
+}
+.envelopeFace::before { left: 50%; transform: skewX(-28deg) translateX(-50%); }
+.envelopeFace::after  { left: 50%; transform: skewX(28deg) translateX(-50%); }
+
+.faceCorners {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.faceCornersBtm {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  transform: rotate(180deg);
+}
+
+.faceCenter {
+  flex: 1;
+}
+
+/* ── Flap ── */
+.flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  z-index: 5;
+}
+
+.flapInner {
+  position: absolute;
+  inset: 0;
+  /* Triangle shape via clip-path */
+  clip-path: polygon(0 0, 100% 0, 50% 85%);
+  background: linear-gradient(170deg, #6b1828 0%, #4a1020 100%);
+  border-left: 1.5px solid var(--color-gold-dark);
+  border-right: 1.5px solid var(--color-gold-dark);
+  backface-visibility: hidden;
+}
+
+/* ── Prompt text ── */
+.prompt {
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  font-style: italic;
+  color: var(--color-gold-light);
+  letter-spacing: 0.08em;
+  text-align: center;
+  user-select: none;
+}
