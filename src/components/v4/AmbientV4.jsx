@@ -108,51 +108,6 @@ function FallingDust() {
   ))
 }
 
-function BokehOrbs() {
-  const items = useMemo(() =>
-    Array.from({ length: 8 }, (_, i) => ({
-      id: i,
-      left: 5 + Math.random() * 90,
-      top: 5 + Math.random() * 90,
-      size: 25 + Math.random() * 65,
-      blur: 10 + Math.random() * 8,
-      duration: 15 + Math.random() * 10,
-      delay: Math.random() * 10,
-      dx1: -30 + Math.random() * 60,
-      dy1: -30 + Math.random() * 60,
-      dx2: -25 + Math.random() * 50,
-      dy2: -25 + Math.random() * 50,
-      dx3: -20 + Math.random() * 40,
-      dy3: -20 + Math.random() * 40,
-      opacityPeak: 0.12 + Math.random() * 0.18,
-      opacityLo: 0.05 + Math.random() * 0.08,
-    })), [])
-
-  return items.map(b => (
-    <span
-      key={b.id}
-      className={styles.bokeh}
-      style={{
-        left: `${b.left}%`,
-        top: `${b.top}%`,
-        width: b.size,
-        height: b.size,
-        '--blur': `${b.blur}px`,
-        '--dx1': `${b.dx1}px`,
-        '--dy1': `${b.dy1}px`,
-        '--dx2': `${b.dx2}px`,
-        '--dy2': `${b.dy2}px`,
-        '--dx3': `${b.dx3}px`,
-        '--dy3': `${b.dy3}px`,
-        '--opacity-peak': b.opacityPeak,
-        '--opacity-lo': b.opacityLo,
-        animationDuration: `${b.duration}s`,
-        animationDelay: `${b.delay}s`,
-      }}
-    />
-  ))
-}
-
 function EmberWisps() {
   const items = useMemo(() =>
     Array.from({ length: 15 }, (_, i) => ({
@@ -260,13 +215,12 @@ export function CursorGlow() {
   )
 }
 
-export function DreamyBackground({ fireflies = true, dust = true, bokeh = true, embers = true }) {
+export function DreamyBackground() {
   return (
     <div className={styles.dreamField} aria-hidden="true">
-      {fireflies && <Fireflies />}
-      {dust && <FallingDust />}
-      {bokeh && <BokehOrbs />}
-      {embers && <EmberWisps />}
+      <Fireflies />
+      <FallingDust />
+      <EmberWisps />
     </div>
   )
 }

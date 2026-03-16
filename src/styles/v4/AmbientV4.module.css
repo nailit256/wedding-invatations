@@ -172,40 +172,7 @@
   }
 }
 
-/* ── 3. Floating Bokeh Orbs ── */
-.bokeh {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle,
-    rgba(212, 178, 84, 0.18) 0%,
-    rgba(184, 134, 11, 0.08) 45%,
-    transparent 70%
-  );
-  filter: blur(var(--blur, 14px));
-  animation: bokehDrift ease-in-out infinite both;
-  will-change: transform, opacity;
-}
-
-@keyframes bokehDrift {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-    opacity: var(--opacity-lo, 0.12);
-  }
-  25% {
-    transform: translate(var(--dx1, 30px), var(--dy1, -20px)) scale(1.08);
-    opacity: var(--opacity-peak, 0.25);
-  }
-  50% {
-    transform: translate(var(--dx2, -15px), var(--dy2, 25px)) scale(0.92);
-    opacity: var(--opacity-lo, 0.12);
-  }
-  75% {
-    transform: translate(var(--dx3, 20px), var(--dy3, 10px)) scale(1.05);
-    opacity: var(--opacity-peak, 0.25);
-  }
-}
-
-/* ── 4. Rising Ember Wisps ── */
+/* ── 3. Rising Ember Wisps ── */
 .ember {
   position: absolute;
   bottom: -8px;

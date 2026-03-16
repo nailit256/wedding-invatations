@@ -80,7 +80,6 @@ export default function App() {
   })
 
   const [stage, setStage] = useState('envelope')
-  const [v4Effects, setV4Effects] = useState({ fireflies: true, dust: true, bokeh: true, embers: true })
   const [muted, setMuted] = useState(false)
   const [musicPlaying, setMusicPlaying] = useState(false)
   const audioRef = useRef(null)
@@ -164,42 +163,6 @@ export default function App() {
         </button>
       )}
 
-      {variation === 4 && (
-        <div style={{
-          position: 'fixed',
-          top: '52px',
-          right: '16px',
-          zIndex: 100,
-          display: 'flex',
-          gap: '4px',
-        }}>
-          {['fireflies', 'dust', 'bokeh', 'embers'].map(key => (
-            <button
-              key={key}
-              onClick={() => setV4Effects(prev => ({ ...prev, [key]: !prev[key] }))}
-              style={{
-                background: v4Effects[key]
-                  ? 'rgba(212, 168, 67, 0.85)'
-                  : 'rgba(20, 6, 6, 0.6)',
-                color: v4Effects[key] ? '#2a1a12' : 'rgba(212, 168, 67, 0.6)',
-                border: `1px solid ${v4Effects[key] ? '#d4a843' : 'rgba(212,168,67,0.25)'}`,
-                borderRadius: '3px',
-                padding: '3px 8px',
-                fontSize: '0.6rem',
-                fontFamily: 'EB Garamond, serif',
-                letterSpacing: '0.05em',
-                cursor: 'pointer',
-                backdropFilter: 'blur(8px)',
-                transition: 'background 0.2s, color 0.2s',
-                textTransform: 'capitalize',
-              }}
-            >
-              {key}
-            </button>
-          ))}
-        </div>
-      )}
-
       <AnimatePresence mode="wait">
         {variation === 1 && (
           <motion.div key="v1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
@@ -242,12 +205,7 @@ export default function App() {
         {variation === 4 && (
           <motion.div key="v4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
             <CursorGlow />
-            <DreamyBackground
-              fireflies={v4Effects.fireflies}
-              dust={v4Effects.dust}
-              bokeh={v4Effects.bokeh}
-              embers={v4Effects.embers}
-            />
+            <DreamyBackground />
             <AnimatePresence mode="wait">
               {stage === 'envelope' && (
                 <EnvelopeV4 key="env4" onOpen={() => setStage('card')} onSealBreak={startV4Music} />
