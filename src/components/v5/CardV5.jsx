@@ -95,8 +95,9 @@ export default function CardV5() {
   const [scrollDone, setScrollDone] = useState(false)
 
   useEffect(() => {
-    // After card lands, start scroll and fade simultaneously, both very slow
+    // Enable scrolling after card lands, then start scroll + fade together
     const timer = setTimeout(() => {
+      if (overlayRef.current) overlayRef.current.style.overflowY = 'auto'
       setScrollDone(true)
       if (overlayRef.current && namesRef.current) {
         slowScrollTo(overlayRef.current, namesRef.current, 3000)
@@ -110,12 +111,7 @@ export default function CardV5() {
       className={styles.overlay}
       ref={overlayRef}
     >
-      <motion.div
-        className={styles.card}
-        initial={{ y: '-100vh', opacity: 1 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1] }}
-      >
+      <div className={styles.card}>
         <div className={styles.cardShimmer} />
         <div className={styles.glowPulse} />
 
@@ -184,7 +180,7 @@ export default function CardV5() {
 
           <FadeItem><CrescentMedallion /></FadeItem>
         </motion.div>
-      </motion.div>
+      </div>
     </motion.div>
   )
 }

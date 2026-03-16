@@ -6,8 +6,13 @@
   align-items: flex-start;
   justify-content: center;
   background: var(--v4-bg);
-  overflow-y: auto;
+  overflow: hidden;
   padding: 24px 16px 56px;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(calc(-100% - 32px)); }
+  to   { transform: translateY(0); }
 }
 
 /* ── Card — cream paper ── */
@@ -30,6 +35,7 @@
     0 16px 48px rgba(60, 40, 20, 0.12),
     inset 0 0 60px rgba(184, 134, 11, 0.04);
   overflow: hidden;
+  animation: slideDown 1.5s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 /* Gold shimmer sweep */
