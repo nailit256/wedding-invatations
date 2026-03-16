@@ -33,19 +33,6 @@ export default function VideoPlayer({ onVideoEnd }) {
         {/* Vignette */}
         <div className={styles.vignette} />
 
-        {/* Cinematic bars */}
-        <motion.div
-          className={styles.barTop}
-          initial={{ height: 0 }}
-          animate={{ height: ready ? BAR_HEIGHT : 0 }}
-          transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
-        />
-        <motion.div
-          className={styles.barBottom}
-          initial={{ height: 0 }}
-          animate={{ height: ready ? BAR_HEIGHT : 0 }}
-          transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
-        />
       </div>
     </motion.div>
   )
