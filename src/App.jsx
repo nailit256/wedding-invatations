@@ -24,11 +24,17 @@ import { GoldOrbsV4, DreamyBackground, CursorGlow } from './components/v4/Ambien
 import bgMusic from './assets/v4/background-music.mp3'
 import './styles/v4/theme.css'
 
+// V5 components
+import EnvelopeV5 from './components/v5/EnvelopeV5'
+import CardV5 from './components/v5/CardV5'
+import './styles/v5/theme.css'
+
 const VARIATIONS = [
   { id: 1, label: 'V1', title: 'Burgundy & Gold' },
   { id: 2, label: 'V2', title: 'Luxury Desi' },
   { id: 3, label: 'V3', title: 'Floral Garden' },
   { id: 4, label: 'V4', title: 'Our Story' },
+  { id: 5, label: 'V5', title: 'Classic Gold' },
 ]
 
 function VariationToggle({ current, onChange }) {
@@ -215,6 +221,21 @@ export default function App() {
                   <GoldOrbsV4 count={16} />
                   <CardV4 key="card4" />
                 </>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        )}
+
+        {variation === 5 && (
+          <motion.div key="v5" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+            <CursorGlow />
+            <DreamyBackground />
+            <AnimatePresence mode="wait">
+              {stage === 'envelope' && (
+                <EnvelopeV5 key="env5" onOpen={() => setStage('card')} />
+              )}
+              {stage === 'card' && (
+                <CardV5 key="card5" />
               )}
             </AnimatePresence>
           </motion.div>
