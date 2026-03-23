@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import RsvpForm from '../RsvpForm'
 import styles from '../../styles/v5/CardV5.module.css'
 
 /* ── Crescent & Star medallion ── */
@@ -176,6 +177,12 @@ export default function CardV5() {
 
           <FadeItem className={styles.closing}>
             Please join us for an evening of love, prayer, and celebration
+          </FadeItem>
+
+          <FadeItem><GoldDividerV4 /></FadeItem>
+
+          <FadeItem>
+            <RsvpForm styles={styles} />
           </FadeItem>
 
           <FadeItem><CrescentMedallion /></FadeItem>
