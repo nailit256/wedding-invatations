@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     const data = req.body;
     const apiKey = process.env.AGENTMAIL_API_KEY;
 
-    const response = await fetch('https://api.agentmail.to/v0/inboxes/shopto@agentmail.to/messages', {
+    const response = await fetch('https://api.agentmail.to/v0/inboxes/shopto@agentmail.to/messages/send', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
