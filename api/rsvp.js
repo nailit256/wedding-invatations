@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -9,18 +8,17 @@ export default async function handler(req, res) {
 
   try {
     const data = req.body;
-
-    // Send email via AgentMail
     const apiKey = process.env.AGENTMAIL_API_KEY;
-    const response = await fetch('https://api.agentmail.to/v0/inboxes/shopto@agentmail.to/threads', {
+
+    const response = await fetch('https://api.agentmail.to/v0/inboxes/shopto@agentmail.to/messages', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        to: 'shopto@agentmail.to',
         subject: `Wedding RSVP: ${data.guest_names || 'Unknown'} — ${data.attending === 'yes' ? '✅ Attending' : '❌ Not Attending'}`,
-        to: ['shopto@agentmail.to'],
         text: [
           `RSVP Submission`,
           `──────────────`,
