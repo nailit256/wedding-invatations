@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        to: 'shopto@agentmail.to',
+        to: ['shopto@agentmail.to'],
         subject: `Wedding RSVP: ${data.guest_names || 'Unknown'} — ${data.attending === 'yes' ? '✅ Attending' : '❌ Not Attending'}`,
         text: [
           `RSVP Submission`,
@@ -34,8 +34,8 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const err = await response.text();
-      console.error('AgentMail error:', err);
-      return res.status(500).json({ error: 'Failed to submit RSVP' });
+      console.error('AgentMail error:', response.status, err);
+      return res.status(500).json({ error: 'Failed to submit RSVP', detail: err });
     }
 
     return res.status(200).json({ success: true });
