@@ -1,11 +1,22 @@
 import { useState } from 'react'
 
+const MIN_GUESTS = 1
+const MAX_GUESTS = 10
+
 export default function RsvpForm({ styles }) {
   const [submitted, setSubmitted] = useState(false)
   const [attending, setAttending] = useState('')
   const [guests, setGuests] = useState(1)
+  const [guestInput, setGuestInput] = useState('1')
   const [guestNames, setGuestNames] = useState([''])
   const [errors, setErrors] = useState({})
+
+  function syncGuestCount(value) {
+    const count = Math.max(MIN_GUESTS, Math.min(MAX_GUESTS, value))
+    setGuests(count)
+    setGuestNames(current => Array.from({ length: count }, (_, i) => current[i] || ''))
+    return count
+  }
 
   function validate() {
     const errs = {}
@@ -108,15 +119,34 @@ export default function RsvpForm({ styles }) {
         How many souls in your party? <span className={styles.rsvpOptional}>(including yourself)</span>
         <input
           className={styles.rsvpInput}
-          type="number"
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
           name="guests"
           min="1"
           max="10"
-          value={guests}
+          value={guestInput}
+          onFocus={e => e.target.select()}
           onChange={e => {
-            const n = Math.max(1, Math.min(10, parseInt(e.target.value) || 1))
-            setGuests(n)
-            setGuestNames(Array.from({ length: n }, (_, i) => guestNames[i] || ''))
+            let value = e.target.value.replace(/\D/g, '')
+
+            // The field starts at “1”. If someone taps the field and types 2–9,
+            // many mobile browsers append it as “12”, “13”, etc.; treat that as
+            // replacing the default 1. Keep “10” valid.
+            if (guestInput === '1' && value.length === 2 && value.startsWith('1')) {
+              value = value[1] === '0' ? '10' : value[1]
+            }
+
+            value = value.slice(0, 2)
+            setGuestInput(value)
+
+            if (value) {
+              syncGuestCount(parseInt(value, 10))
+            }
+          }}
+          onBlur={() => {
+            const count = syncGuestCount(parseInt(guestInput, 10) || MIN_GUESTS)
+            setGuestInput(String(count))
           }}
         />
       </label>
